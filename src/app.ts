@@ -16,25 +16,25 @@ class App {
     }
 
     getAndEditAllDevicesByPageSize = async (size: number): Promise<void> => {
+        // get first devices
         const resp = await this.getDevices(0, size)
-
         if (!resp) {
             console.error(`ERROR IN TASK: CANT GET FIRTS ${size} DEVICES`)
             return
         }
+        // edit first devices
+        this.editDevices(resp.items)
 
 
-        this.editDevicesASync(resp.items)
-
+        // get and edit rest devices
         const totalPages = resp.total / size;
         const pages = Array.from({ length: totalPages }, (_, i) => i + 1)
-
         pages.forEach((page) => this.getAndEditDevices(page, size));
     }
 
     getAndEditDevices = async (page: number, size: number): Promise<void> => {
         const resp = await this.getDevices(page, size)
-        if (resp) this.editDevicesASync(resp.items)
+        if (resp) this.editDevices(resp.items)
         else console.error(`ERROR IN TASK: GET DEVICES IN PAGE: ${page}, SIZE: ${size}`)
 
     }
@@ -43,7 +43,7 @@ class App {
         return this.http.get("/devices", { page: page, size: size })
     }
 
-    editDevicesASync = (items: Device[]): void => {
+    editDevices = (items: Device[]): void => {
         items.forEach(async device => {
             if (device.userId) {
                 const user: User = await this.getUserById(device.userId)
