@@ -1,7 +1,7 @@
 {
   "name": "orcam_server",
   "version": "1.0.0",
-  "description": "My firts Orcam server",
+  "description": "My first Orcam server",
   "main": "dist/app.js",
   "scripts": {
     "start": "tsc && node dist/app.js",

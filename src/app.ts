@@ -19,7 +19,7 @@ class App {
         // get first devices
         const resp = await this.getDevices(0, size)
         if (!resp) {
-            console.error(`ERROR IN TASK: CANT GET FIRTS ${size} DEVICES`)
+            console.error(`ERROR IN TASK: CANT GET FIRST ${size} DEVICES`)
             return
         }
         // edit first devices
